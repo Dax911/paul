@@ -5,16 +5,16 @@ import { User } from '../interfaces'
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
 export default function Index() {
-  const { data, error } = useSWR('/api/people', fetcher)
+  const { data, error } = useSWR('https://api.getmoonbounce.com/api/v3/user/1', fetcher)
 
   if (error) return <div>Failed to load</div>
   if (!data) return <div>Loading...</div>
 
   return (
     <ul>
-      {data.map((p: User) => (
-        <UserComponent key={p.user_id} user={p} />
-      ))}
+      
+        <UserComponent key={1} user={data} />
+      
     </ul>
   )
 }
