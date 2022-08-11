@@ -5,13 +5,12 @@ type ResponseError = {
   message: string
 }
 
-export default async function personHandler(
+export default async function userHandler(
   req: NextApiRequest,
   res: NextApiResponse<User | ResponseError>
 ) {
   const { query } = req
   const { id } = query
-  //const filtered = people.filter((p) => p.id === id)
 
   const filtered = await fetch(`https://api.getmoonbounce.com/api/v3/user/${id}`)
     .then((response) => response.json())
@@ -24,7 +23,7 @@ export default async function personHandler(
     })
 
   // User with id exists
-  return filtered.length > 0
+  return filtered != null
     ? res.status(200).json(filtered[0])
     : res.status(404).json({ message: `User with id: ${id} not found.` })
 }
