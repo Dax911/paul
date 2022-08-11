@@ -34,6 +34,14 @@ export default function User() {
             </div>
             <div className={styles.idtext}>
               <span>USER ID: {data.user_id}</span>
+              <br />
+              <span>STATE: {data.state}</span>
+              <br />
+              <span>STAGE ID: {data.stage_id}</span>
+              <br />
+              <span>COLORS: {data.colors}</span>
+              <br />
+              <span>BADGES: {data.badges}</span>
             </div>
           </div>
         </div>
