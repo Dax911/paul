@@ -14,7 +14,7 @@ const fetcher = async (url: string) => {
 export default function Person() {
   const { query } = useRouter()
   const { data, error } = useSWR(
-    () => query.id && `/api/people/${query.id}`,
+    () => query.id && `https://api.getmoonbounce.com/api/v3/user/${query.id}`,
     fetcher
   )
 
@@ -36,7 +36,7 @@ export default function Person() {
       </thead>
       <tbody>
         <tr>
-          <td>{data.name}</td>
+          <td>{data.user_id}</td>
           <td>{data.height}</td>
           <td>{data.mass}</td>
           <td>{data.hair_color}</td>

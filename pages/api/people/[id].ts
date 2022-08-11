@@ -1,18 +1,27 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { people } from '../../../data'
-import { Person } from '../../../interfaces'
+import { User } from '../../../interfaces'
 
 type ResponseError = {
   message: string
 }
 
-export default function personHandler(
+export default async function personHandler(
   req: NextApiRequest,
-  res: NextApiResponse<Person | ResponseError>
+  res: NextApiResponse<User | ResponseError>
 ) {
   const { query } = req
   const { id } = query
-  const filtered = people.filter((p) => p.id === id)
+  //const filtered = people.filter((p) => p.id === id)
+
+  const filtered = await fetch(`https://api.getmoonbounce.com/api/v3/user/${id}`)
+    .then((response) => response.json())
+    .then((data) => 
+      JSON.stringify(data)
+    )
+    .catch((error) => {
+      console.error(error)
+      res.status(500).json({ message: 'Internal server error' })
+    })
 
   // User with id exists
   return filtered.length > 0
