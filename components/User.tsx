@@ -11,6 +11,11 @@ export default function UserComponent({ user }: UserProps) {
       <Link href="/user/[id]" as={`/user/${user.user_id}`}>
         <a>{user.username}</a>
       </Link>
+      <div>
+        {user.user_id}
+        {user.username}
+        {user.profile_picture}
+      </div>
     </li>
   )
 }

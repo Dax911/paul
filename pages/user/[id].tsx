@@ -1,50 +1,43 @@
-import { useRouter } from 'next/router'
-import useSWR from 'swr'
-
+import { useRouter } from "next/router";
+import useSWR from "swr";
+import styles from "./index.module.css";
 const fetcher = async (url: string) => {
-  const res = await fetch(url)
-  const data = await res.json()
+  const res = await fetch(url);
+  const data = await res.json();
 
   if (res.status !== 200) {
-    throw new Error(data.message)
+    throw new Error(data.message);
   }
-  return data
-}
+  return data;
+};
 
 export default function User() {
-  const { query } = useRouter()
+  const { query } = useRouter();
   const { data, error } = useSWR(
     () => query.id && `https://api.getmoonbounce.com/api/v3/user/${query.id}`,
     fetcher
-  )
+  );
 
-  if (error) return <div>{error.message}</div>
-  if (!data) return <div>Loading...</div>
+  if (error) return <div>{error.message}</div>;
+  if (!data) return <div>Loading...</div>;
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Height</th>
-          <th>Mass</th>
-          <th>Hair color</th>
-          <th>Skin color</th>
-          <th>Eye color</th>
-          <th>Gender</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{data.user_id}</td>
-          <td>{data.height}</td>
-          <td>{data.mass}</td>
-          <td>{data.hair_color}</td>
-          <td>{data.skin_color}</td>
-          <td>{data.eye_color}</td>
-          <td>{data.gender}</td>
-        </tr>
-      </tbody>
-    </table>
-  )
+    <div>
+      <div className={styles.modalbox}>
+        <div className={styles.headerbox}>
+          <div className={styles.imagebox}>
+              <img src={data.profile_picture} className={styles.image}/>
+          </div>
+          <div className={styles.titlebox}>
+            <div className={styles.nametext}>
+              <span>{data.username}</span>
+            </div>
+            <div className={styles.idtext}>
+              <span>USER ID: {data.user_id}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
