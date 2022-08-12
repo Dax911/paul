@@ -42,6 +42,10 @@ export default function User() {
               <span>COLORS: {data.colors}</span>
               <br />
               <span>BADGES: {data.badges}</span>
+              <br />
+              <span>Friends List: {data.friends_list}</span>
+              <br />
+              <span>Inventory: {data.inventory.items.id}</span>
             </div>
           </div>
         </div>
